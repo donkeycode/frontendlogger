@@ -87,6 +87,10 @@
     }
 
     function addEventSummary(e){
+      if (eventsSummary.length > lenghtMaxLog) {
+        eventsSummary.pop();
+      }
+      
       eventsSummary.push(stringifyEvent(e));
     }
 

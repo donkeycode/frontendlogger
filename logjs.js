@@ -34,10 +34,11 @@
     ];
 
     function arrayToString(arr){
+      arr.reverse();
       var str = "";
       arr.forEach(function(el){
         if(str !== "") {
-          str += " => ";
+          str += " <= ";
         }
         str += el;
       });

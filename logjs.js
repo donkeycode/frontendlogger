@@ -48,7 +48,7 @@
       var logging = {
         "logType": "logjs",
         "lastEvent": events[0],
-        "userAgentUA": events[0].userAgent,
+        "userAgentUA": navigator.userAgent,
         "eventsSummary": arrayToString(eventsSummary)
       };
       logging.events = events;
@@ -121,7 +121,6 @@
         "eventType": e.type,
         "originalEvent": originalEvent,
         "eventLevel": eventsLevels[eventLevel].level,
-        "userAgent": navigator.userAgent,
         "url": window.location.href,
         "date": Date.now(),
         "user": user
@@ -152,7 +151,6 @@
         fileName: source,
         lineNumber: lineno,
         columnNumber: colno,
-        userAgent: window.navigator.userAgent,
         date: Date.now(),
         user: user
       };
@@ -181,7 +179,6 @@
 
     var addEvent = function addExternalEvent(e){
       var logging = {
-        "userAgent": navigator.userAgent,
         "url": window.location.href,
         "date": Date.now(),
         "user": user

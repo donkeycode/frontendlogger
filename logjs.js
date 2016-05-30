@@ -16,7 +16,7 @@
 
     // Default values
     var user = {};
-    var maxLenghtLog = 30;
+    var maxLengthLog = 30;
     var serverUrl = "http://10.10.10.10:8080";
     var eventsLevels = [
       {
@@ -87,7 +87,7 @@
     }
 
     function addEventSummary(e){
-      if (eventsSummary.length > maxLenghtLog) {
+      if (eventsSummary.length > maxLengthLog) {
         eventsSummary.pop();
       }
 
@@ -95,7 +95,7 @@
     }
 
     function pushEvent(logEvent) {
-      if (events.length > maxLenghtLog) {
+      if (events.length > maxLengthLog) {
         events.pop();
       }
       events.unshift(logEvent);
@@ -168,15 +168,15 @@
     };
 
     var setUser = function setUser(currentUser){
-      this.user = currentUser;
+      user = currentUser;
     };
 
     var setServerUrl = function setServerUrl(url){
-      this.serverUrl = url;
+      serverUrl = url;
     };
 
     var setMaxLengthLog = function setMaxLengthLog(size){
-      this.setMaxLengthLog = size;
+      maxLengthLog = size;
     };
 
     var addEvent = function addExternalEvent(e){
@@ -191,7 +191,7 @@
         logging.eventType = e.eventType;
       }
       if (e.eventLevel){
-        logging.eventLevel = this.eventsLevels[e.eventLevel].level;
+        logging.eventLevel = eventsLevels[e.eventLevel].level;
       }
       if (e.message){
         logging.message = e.message;

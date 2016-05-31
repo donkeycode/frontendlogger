@@ -1,6 +1,6 @@
 {
-  "name": "logjs",
-  "main": "logjs.js",
+  "name": "frontendlogger",
+  "main": "frontendlogger.js",
   "authors": [
     "Nicola RIZZO <nicola.n.rizzo@gmail.com>"
   ],

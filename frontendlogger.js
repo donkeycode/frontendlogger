@@ -1,7 +1,7 @@
 ;(function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  global.logjs = factory()
+  global.frontendlogger = factory()
 }(this, function () { 'use strict';
 
     var events = [];
@@ -47,7 +47,7 @@
 
     function sendStackTrace(){
       var logging = {
-        "logType": "logjs",
+        "logType": "frontendlogger",
         "lastEvent": events[0],
         "userAgentUA": navigator.userAgent,
         "eventsSummary": arrayToString(eventsSummary)

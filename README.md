@@ -34,7 +34,7 @@ logjs.setServerUrl("http://localhost:8080");
 
 ### setUser (default: {})
 
-You can also add current user information with the command setUser, for example:
+You can also add current user information with the setUser command, for example:
 
 ```javascript
 logjs.setUser(user);
@@ -42,7 +42,7 @@ logjs.setUser(user);
 
 ### setMaxLengthLog (default: 30)
 
-You can also change the default length of the stack trace with the command setMaxLengthLog, for example:
+You can also change the default length of the stack trace with the setMaxLengthLog command, for example:
 
 ```javascript
 logjs.setMaxLengthLog(100);
@@ -50,7 +50,7 @@ logjs.setMaxLengthLog(100);
 
 ### addEvent
 
-You can also add your custom event with the command addEvent, for example:
+You can also add your custom event with the addEvent command, for example:
 
 ```javascript
 var event = {

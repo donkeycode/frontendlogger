@@ -1,6 +1,6 @@
-# logjs
+# frontendlogger
 
-logjs is a JavaScript library for sending logs of front events and errors to a server.
+frontendlogger is a JavaScript library for sending logs of front events and errors to a server.
 
 This library sends logs to the server only when it catches a warning or a critical event. 
 Logs sent to the server are composed of the last events logs.
@@ -9,16 +9,22 @@ It integrates easily with an ELK (Elasticsearch-Logstash-Kibana) stack.
 
 ## Installing
 
-The simplest way to install logjs is to use bower:
+The simplest way to install frontendlogger is to use npm:
 
 ```
-bower install logjs
+npm install frontendlogger
+```
+
+or bower:
+
+```
+bower install frontendlogger
 ```
 
 After that, you have to include it with a script tag in your HTML file:
 
 ```html
-<script src="path_to_bower_components/logjs/logjs.js"></script>
+<script src="path_to_bower_components/frontendlogger/frontendlogger.js"></script>
 ```
 
 ## Configuration
@@ -29,7 +35,7 @@ To use this library, you have to set the URL of the server to which you want to 
 To do that, simply use the setServerUrl command; for example:
 
 ```javascript
-logjs.setServerUrl("http://localhost:8080");
+frontendlogger.setServerUrl("http://localhost:8080");
 ```
 
 ### setUser (default: {})
@@ -37,7 +43,7 @@ logjs.setServerUrl("http://localhost:8080");
 You can also add current user information with the setUser command, for example:
 
 ```javascript
-logjs.setUser(user);
+frontendlogger.setUser(user);
 ```
 
 ### setMaxLengthLog (default: 30)
@@ -45,7 +51,7 @@ logjs.setUser(user);
 You can also change the default length of the stack trace with the setMaxLengthLog command, for example:
 
 ```javascript
-logjs.setMaxLengthLog(100);
+frontendlogger.setMaxLengthLog(100);
 ```
 
 ### addEvent
@@ -58,10 +64,10 @@ var event = {
   eventLevel = 2, // 0 for debug events, 1 for warning events, 2 for critical events
   eventType = "myCriticalEvent"
 };
-logjs.addEvent(event);
+frontendlogger.addEvent(event);
 ```
 
-logjs adds automagically the current user page URL, a datetime string and the user (if defined) to your custom event.
+frontendlogger adds automagically the current user page URL, a datetime string and the user (if defined) to your custom event.
 
 ### Logstash configuration
 
@@ -83,7 +89,7 @@ input {
   }
 }
 filter {
-    if [logType] == "logjs" {
+    if [logType] == "frontendlogger" {
       useragent {
           source => "userAgentUA"
           target => "UA"

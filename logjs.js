@@ -6,8 +6,17 @@
 
     var events = [];
     var eventsSummary = [];
+
+    var originalErrorHandler = window.onerror;
+    if ( ! originalErrorHandler ) {
+      originalErrorHandler = function mockHandler() {
+        return( true );
+      };
+    }
+
+    // Default values
     var user = {};
-    var lenghtMaxLog = 30;
+    var maxLengthLog = 30;
     var serverUrl = "http://10.10.10.10:8080";
     var eventsLevels = [
       {
@@ -23,19 +32,13 @@
         "level": 2
       }
     ];
-    var originalErrorHandler = window.onerror;
-
-    if ( ! originalErrorHandler ) {
-      originalErrorHandler = function mockHandler() {
-        return( true );
-      };
-    }
 
     function arrayToString(arr){
+      arr.reverse();
       var str = "";
       arr.forEach(function(el){
         if(str !== "") {
-          str += " => ";
+          str += " <= ";
         }
         str += el;
       });
@@ -46,7 +49,7 @@
       var logging = {
         "logType": "logjs",
         "lastEvent": events[0],
-        "userAgentUA": events[0].userAgent,
+        "userAgentUA": navigator.userAgent,
         "eventsSummary": arrayToString(eventsSummary)
       };
       logging.events = events;
@@ -85,11 +88,15 @@
     }
 
     function addEventSummary(e){
+      if (eventsSummary.length > maxLengthLog) {
+        eventsSummary.pop();
+      }
+
       eventsSummary.push(stringifyEvent(e));
     }
 
     function pushEvent(logEvent) {
-      if (events.length > lenghtMaxLog) {
+      if (events.length > maxLengthLog) {
         events.pop();
       }
       events.unshift(logEvent);
@@ -115,7 +122,6 @@
         "eventType": e.type,
         "originalEvent": originalEvent,
         "eventLevel": eventsLevels[eventLevel].level,
-        "userAgent": navigator.userAgent,
         "url": window.location.href,
         "date": Date.now(),
         "user": user
@@ -146,7 +152,6 @@
         fileName: source,
         lineNumber: lineno,
         columnNumber: colno,
-        userAgent: window.navigator.userAgent,
         date: Date.now(),
         user: user
       };
@@ -162,12 +167,19 @@
     };
 
     var setUser = function setUser(currentUser){
-      this.user = currentUser;
+      user = currentUser;
+    };
+
+    var setServerUrl = function setServerUrl(url){
+      serverUrl = url;
+    };
+
+    var setMaxLengthLog = function setMaxLengthLog(size){
+      maxLengthLog = size;
     };
 
     var addEvent = function addExternalEvent(e){
       var logging = {
-        "userAgent": navigator.userAgent,
         "url": window.location.href,
         "date": Date.now(),
         "user": user
@@ -177,7 +189,7 @@
         logging.eventType = e.eventType;
       }
       if (e.eventLevel){
-        logging.eventLevel = this.eventsLevels[e.eventLevel].level;
+        logging.eventLevel = eventsLevels[e.eventLevel].level;
       }
       if (e.message){
         logging.message = e.message;
@@ -188,6 +200,8 @@
 
     return {
       setUser: setUser,
-      addEvent: addEvent
+      addEvent: addEvent,
+      setServerUrl: setServerUrl,
+      setMaxLengthLog: setMaxLengthLog
     };
   }));

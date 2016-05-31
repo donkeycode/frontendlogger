@@ -24,12 +24,32 @@
         "level": 0
       },
       {
-        "label": "warning",
+        "label": "info",
         "level": 1
       },
       {
-        "label": "critical",
+        "label": "notice",
         "level": 2
+      },
+      {
+        "label": "warning",
+        "level": 3
+      },
+      {
+        "label": "error",
+        "level": 4
+      },
+      {
+        "label": "critical",
+        "level": 5
+      },
+      {
+        "label": "alert",
+        "level": 6
+      },
+      {
+        "label": "emergency",
+        "level": 7
       }
     ];
 
@@ -178,7 +198,7 @@
       maxLengthLog = size;
     };
 
-    var addEvent = function addExternalEvent(e){
+    function addExternalEvent(e){
       var logging = {
         "url": window.location.href,
         "date": Date.now(),
@@ -188,19 +208,65 @@
       if (e.eventType){
         logging.eventType = e.eventType;
       }
-      if (e.eventLevel){
-        logging.eventLevel = eventsLevels[e.eventLevel].level;
-      }
       if (e.message){
         logging.message = e.message;
       }
 
+      logging.eventLevel = eventsLevels[e.eventLevel].level;
+
       pushEvent(logging);
+    }
+
+    var debug = function debug(e){
+      e.eventLevel = 0;
+      addExternalEvent(e);
+    };
+
+    var info = function info(e){
+      e.eventLevel = 1;
+      addExternalEvent(e);
+    };
+
+    var notice = function notice(e){
+      e.eventLevel = 2;
+      addExternalEvent(e);
+    };
+
+    var warning = function warning(e){
+      e.eventLevel = 3;
+      addExternalEvent(e);
+    };
+
+    var error = function error(e){
+      e.eventLevel = 4;
+      addExternalEvent(e);
+    };
+
+    var critical = function critical(e){
+      e.eventLevel = 5;
+      addExternalEvent(e);
+    };
+
+    var alert = function alert(e){
+      e.eventLevel = 6;
+      addExternalEvent(e);
+    };
+
+    var emergency = function emergency(e){
+      e.eventLevel = 7;
+      addExternalEvent(e);
     };
 
     return {
       setUser: setUser,
-      addEvent: addEvent,
+      debug: debug,
+      info: info,
+      notice: notice,
+      warning: warning,
+      error: error,
+      critical: critical,
+      alert: alert,
+      emergency: emergency,
       setServerUrl: setServerUrl,
       setMaxLengthLog: setMaxLengthLog
     };

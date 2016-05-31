@@ -123,7 +123,7 @@
 
       addEventSummary(logEvent);
 
-      if(logEvent.eventLevel > 0) {
+      if(logEvent.eventLevel > 3) {
         sendStackTrace();
       }
     }
